@@ -66,15 +66,47 @@ class FileSystem:
 if __name__ == "__main__":
     fs = FileSystem()
 
-    print("\nMaking a folder")
-    fs.mkdir("docs")
-    fs.cd("docs")
+    print("Simple FileSystem Simulator")
+    print("Useable commands: 'ls', 'mkdir <directory>', 'touch <filename>', 'cd <directory>', 'exit'")
 
-    print("\nMaking a file")
-    fs.touch("readme.txt")
+    while True:
+        cmdl = input("Enter a command: ")
+        if len(cmdl) == 0:
+            continue
 
-    print("\nWhat's inside the directory:")
-    fs.ls()
+        parts = cmdl.split(" ")
+        if parts[0] == "exit":
+            print("exiting...")
+            break
+        elif parts[0] == "ls":
+            fs.ls()
+        elif parts[0] == "mkdir":
+            if len(parts) == 1:
+                print("Missing directory name")
+            else:
+                print(f"{parts[1]} created")
+                fs.mkdir(parts[1])
+        elif parts[0] == "cd":
+            if len(parts) == 1:
+                print("Missing path")
+            else:
+                fs.cd(parts[1])
+        elif parts[0] == "touch":
+            if len(parts) == 1:
+                print("Missing file name")
+            else:
+                print(f"{parts[1]} created")
+                fs.touch(parts[1])
 
-    print("\nHeading back to root")
-    fs.cd("/")
+    # print("\nMaking a folder")
+    # fs.mkdir("docs")
+    # fs.cd("docs")
+    #
+    # print("\nMaking a file")
+    # fs.touch("readme.txt")
+    #
+    # print("\nWhat's inside the directory:")
+    # fs.ls()
+    #
+    # print("\nHeading back to root")
+    # fs.cd("/")
